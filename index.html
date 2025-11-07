@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правильное питание - Путь к здоровью</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0fce7e;
+            --accent-hover: #0db46d;
+            --text: #e6e6e6;
+            --text-secondary: #b3b3b3;
+            --card-bg: rgba(30, 30, 46, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(22, 33, 62, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--text);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a.active {
+            color: var(--accent);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.8));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(15, 206, 126, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(15, 206, 126, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), #4de1ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(15, 206, 126, 0.2);
+        }
+
+        /* Page Sections */
+        .page {
+            display: none;
+            padding: 4rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0.5rem auto;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: rgba(15, 206, 126, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-direction: column;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .mobile-nav {
+                display: none;
+                width: 100%;
+                text-align: center;
+            }
+
+            .mobile-nav.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Питание<span>Здоровье</span></a>
+                <button class="mobile-menu-btn">☰</button>
+                <nav class="mobile-nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="home">Главная</a></li>
+                        <li><a href="#" class="nav-link" data-page="principles">Принципы</a></li>
+                        <li><a href="#" class="nav-link" data-page="products">Продукты</a></li>
+                        <li><a href="#" class="nav-link" data-page="recipes">Рецепты</a></li>
+                        <li><a href="#" class="nav-link" data-page="myths">Мифы</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Главная страница -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="container">
+                    <h1>Правильное питание - путь к здоровью</h1>
+                    <p>Откройте для себя мир сбалансированного питания, который поможет вам улучшить самочувствие, повысить энергию и достичь оптимального здоровья.</p>
+                    <a href="#" class="btn nav-link" data-page="principles">Узнать больше</a>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="content-section">
+                    <h2>Что такое правильное питание?</h2>
+                    <p>Правильное питание — это не просто диета или временное ограничение в еде. Это образ жизни, который предполагает сбалансированное потребление питательных веществ, необходимых для поддержания здоровья, энергии и хорошего самочувствия.</p>
+                    
+                    <div class="highlight">
+                        <p>Правильное питание помогает предотвратить многие хронические заболевания, поддерживает оптимальный вес, улучшает работу мозга и повышает качество жизни в целом.</p>
+                    </div>
+                    
+                    <p>В основе правильного питания лежит не отказ от любимых продуктов, а их разумное сочетание и умеренное потребление. Важно понимать, что наш организм нуждается в разнообразных питательных веществах, которые мы получаем из разных источников пищи.</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>Сбалансированность</h3>
+                        <p>Правильное питание предполагает баланс между белками, жирами и углеводами, а также достаточное количество витаминов и минералов.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Регулярность</h3>
+                        <p>Важно не только что мы едим, но и когда. Регулярные приемы пищи помогают поддерживать стабильный уровень энергии в течение дня.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Разнообразие</h3>
+                        <p>Чем разнообразнее ваш рацион, тем больше различных питательных веществ получает ваш организм.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница принципов -->
+        <section id="principles" class="page">
+            <div class="container">
+                <h2 class="section-title">Основные принципы правильного питания</h2>
+                
+                <div class="content-section">
+                    <h2>1. Сбалансированность рациона</h2>
+                    <p>Сбалансированный рацион включает в себя все необходимые питательные вещества в правильных пропорциях. Это означает, что вы должны получать:</p>
+                    <ul>
+                        <li><strong>Белки</strong> - строительный материал для клеток, необходим для роста и восстановления тканей</li>
+                        <li><strong>Углеводы</strong> - основной источник энергии для организма</li>
+                        <li><strong>Жиры</strong> - важны для усвоения витаминов, работы мозга и гормональной системы</li>
+                        <li><strong>Витамины и минералы</strong> - необходимы для нормального функционирования всех систем организма</li>
+                        <li><strong>Клетчатка</strong> - улучшает пищеварение и помогает поддерживать здоровый вес</li>
+                    </ul>
+                </div>
+
+                <div class="content-section">
+                    <h2>2. Режим питания</h2>
+                    <p>Регулярность приемов пищи — ключевой принцип правильного питания. Рекомендуется:</p>
+                    <ol>
+                        <li>Есть 3-5 раз в день небольшими порциями</li>
+                        <li>Не пропускать завтрак — это самый важный прием пищи</li>
+                        <li>Ужинать не позднее, чем за 2-3 часа до сна</li>
+                        <li>Соблюдать примерно равные промежутки между приемами пищи</li>
+                    </ol>
+                    <p>Такой подход помогает поддерживать стабильный уровень сахара в крови, предотвращает переедание и улучшает метаболизм.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>3. Достаточное потребление воды</h2>
+                    <p>Вода играет crucial роль в правильном питании. Она:</p>
+                    <ul>
+                        <li>Участвует во всех обменных процессах</li>
+                        <li>Помогает выводить токсины из организма</li>
+                        <li>Поддерживает эластичность кожи</li>
+                        <li>Регулирует температуру тела</li>
+                        <li>Улучшает пищеварение</li>
+                    </ul>
+                    <p>Рекомендуется выпивать 1,5-2 литра чистой воды в день. Потребность может варьироваться в зависимости от физической активности, климата и индивидуальных особенностей организма.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>4. Обработка пищи</h2>
+                    <p>Способ приготовления пищи значительно влияет на ее питательную ценность. Предпочтительны:</p>
+                    <ul>
+                        <li>Варка на пару</li>
+                        <li>Запекание</li>
+                        <li>Тушение</li>
+                        <li>Гриль без избытка масла</li>
+                    </ul>
+                    <p>Следует ограничить жареные продукты, особенно во фритюре, так как при таком способе приготовления образуются вредные соединения и значительно увеличивается калорийность блюд.</p>
+                </div>
+
+                <div class="highlight">
+                    <p>Помните: правильное питание — это не строгая диета, а сбалансированный подход к еде, который можно и нужно адаптировать под свои предпочтения и образ жизни.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница продуктов -->
+        <section id="products" class="page">
+            <div class="container">
+                <h2 class="section-title">Полезные продукты для правильного питания</h2>
+                
+                <div class="content-section">
+                    <h2>Овощи и зелень</h2>
+                    <p>Овощи — основа здорового рациона. Они богаты витаминами, минералами, антиоксидантами и клетчаткой. Рекомендуется включать в рацион разнообразные овощи разных цветов, так как каждый цвет указывает на наличие определенных полезных веществ.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Листовые овощи</h3>
+                            <p>Шпинат, капуста, руккола, салат — богаты железом, кальцием, витаминами A, C, K и фолиевой кислотой.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Крестоцветные</h3>
+                            <p>Брокколи, цветная капуста, брюссельская капуста — содержат сульфорафан, обладающий противораковыми свойствами.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Корнеплоды</h3>
+                            <p>Морковь, свекла, редис — источники клетчатки, антиоксидантов и сложных углеводов.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Фрукты и ягоды</h2>
+                    <p>Фрукты и ягоды — натуральные источники витаминов, минералов и антиоксидантов. Они помогают укрепить иммунитет, улучшить пищеварение и поддерживать здоровье кожи.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Ягоды</h3>
+                            <p>Черника, малина, клубника, ежевика — содержат антоцианы, мощные антиоксиданты, защищающие клетки от повреждений.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Цитрусовые</h3>
+                            <p>Апельсины, лимоны, грейпфруты — богаты витамином C, который укрепляет иммунитет и улучшает усвоение железа.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Сезонные фрукты</h3>
+                            <p>Яблоки, груши, сливы — источники пектина, улучшающего пищеварение и снижающего уровень холестерина.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Белковые продукты</h2>
+                    <p>Белки необходимы для построения и восстановления тканей, производства ферментов и гормонов. Важно включать в рацион разнообразные источники белка.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Постное мясо</h3>
+                            <p>Куриная грудка, индейка, кролик — источники полноценного белка с минимальным содержанием жира.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Рыба и морепродукты</h3>
+                            <p>Лосось, тунец, креветки — богаты омега-3 жирными кислотами, важными для здоровья сердца и мозга.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Растительные белки</h3>
+                            <p>Чечевица, нут, тофу, киноа — отличные источники белка для вегетарианцев и веганов.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Здоровые жиры</h2>
+                    <p>Жиры необходимы для усвоения жирорастворимых витаминов, производства гормонов и здоровья мозга. Важно выбирать полезные источники жиров.</p>
+                    
+                    <div class="card-grid">
+                        <div class="card">
+                            <h3>Орехи и семена</h3>
+                            <p>Грецкие орехи, миндаль, семена льна и чиа — содержат омега-3 жирные кислоты, витамин E и клетчатку.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Авокадо</h3>
+                            <p>Богат мононенасыщенными жирами, калием и витаминами группы B.</p>
+                        </div>
+                        <div class="card">
+                            <h3>Оливковое масло</h3>
+                            <p>Содержит антиоксиданты и полезные жиры, снижающие риск сердечно-сосудистых заболеваний.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <p>Помните: разнообразие — ключ к получению всех необходимых питательных веществ. Старайтесь включать в свой рацион продукты разных групп и цветов.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница рецептов -->
+        <section id="recipes" class="page">
+            <div class="container">
+                <h2 class="section-title">Полезные рецепты для правильного питания</h2>
+                
+                <div class="content-section">
+                    <h2>Завтраки</h2>
+                    <p>Завтрак — самый важный прием пищи, который запускает метаболизм и обеспечивает энергией на первую половину дня.</p>
+                    
+                    <div class="card">
+                        <h3>Овсяная каша с ягодами и орехами</h3>
+                        <p><strong>Ингредиенты:</strong> овсяные хлопья (50 г), вода или молоко (200 мл), смесь ягод (горсть), грецкие орехи (1 ст.л.), мед (1 ч.л.).</p>
+                        <p><strong>Приготовление:</strong> Овсяные хлопья залить водой или молоком, варить на медленном огне 5-7 минут. Добавить ягоды и орехи, подавать с медом.</p>
+                        <p><strong>Польза:</strong> Сложные углеводы обеспечивают длительное чувство сытости, ягоды и орехи добавляют антиоксиданты и полезные жиры.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Омлет со шпинатом и помидорами</h3>
+                        <p><strong>Ингредиенты:</strong> яйца (2 шт.), шпинат (горсть), помидоры черри (5-6 шт.), оливковое масло (1 ч.л.), соль, специи по вкусу.</p>
+                        <p><strong>Приготовление:</strong> Яйца взбить с солью и специями. На сковороде с оливковым маслом обжарить шпинат и помидоры, залить яичной смесью, готовить под крышкой 5-7 минут.</p>
+                        <p><strong>Польза:</strong> Белок из яиц обеспечивает сытость, шпинат добавляет железо и витамины, помидоры — ликопин.</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Обеды</h2>
+                    <p>Обед должен быть сбалансированным и включать белки, сложные углеводы и овощи.</p>
+                    
+                    <div class="card">
+                        <h3>Куриная грудка с киноа и овощами на пару</h3>
+                        <p><strong>Ингредиенты:</strong> куриная грудка (150 г), киноа (50 г сухой), брокколи (100 г), морковь (1 шт.), оливковое масло (1 ч.л.), лимонный сок, специи.</p>
+                        <p><strong>Приготовление:</strong> Куриную грудку запекать в духовке с специями 25-30 минут. Киноа варить согласно инструкции. Овощи приготовить на пару. Подавать с оливковым маслом и лимонным соком.</p>
+                        <p><strong>Польза:</strong> Полноценный белок из курицы, сложные углеводы из киноа, витамины и клетчатка из овощей.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Суп-пюре из тыквы</h3>
+                        <p><strong>Ингредиенты:</strong> тыква (300 г), морковь (1 шт.), лук (1 шт.), овощной бульон (500 мл), имбирь (1 см), кокосовые сливки (2 ст.л.), специи.</p>
+                        <p><strong>Приготовление:</strong> Овощи нарезать, обжарить с имбирем, залить бульоном и варить до мягкости. Измельчить блендером, добавить кокосовые сливки и специи.</p>
+                        <p><strong>Польза:</strong> Тыква богата бета-каротином, имбирь улучшает пищеварение, кокосовые сливки добавляют полезные жиры.</p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Ужины</h2>
+                    <p>Ужин должен быть легким, но питательным, с акцентом на белки и овощи.</p>
+                    
+                    <div class="card">
+                        <h3>Лосось с овощным рататуем</h3>
+                        <p><strong>Ингредиенты:</strong> филе лосося (150 г), баклажан (1/2 шт.), цукини (1/2 шт.), болгарский перец (1 шт.), помидоры (2 шт.), чеснок (2 зубчика), оливковое масло, специи.</p>
+                        <p><strong>Приготовление:</strong> Овощи нарезать кубиками, тушить с чесноком и специями 20-25 минут. Лосось запекать в духовке 15-20 минут. Подавать вместе.</p>
+                        <p><strong>Польза:</strong> Омега-3 из лосося, антиоксиданты из овощей, клетчатка для пищеварения.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Салат с киноа и авокадо</h3>
+                        <p><strong>Ингредиенты:</strong> киноа (50 г сухой), авокадо (1/2 шт.), огурец (1 шт.), помидоры черри (5-6 шт.), руккола (горсть), оливковое масло, лимонный сок, специи.</p>
+                        <p><strong>Приготовление:</strong> Киноа отварить согласно инструкции. Овощи и авокадо нарезать, смешать с киноа и рукколой. Заправить оливковым маслом и лимонным соком.</p>
+                        <p><strong>Польза:</strong> Растительный белок из киноа, полезные жиры из авокадо, витамины и клетчатка из овощей.</p>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <p>Экспериментируйте с рецептами, адаптируйте их под свои вкусовые предпочтения и сезонные продукты. Правильное питание может быть вкусным и разнообразным!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Страница мифов -->
+        <section id="myths" class="page">
+            <div class="container">
+                <h2 class="section-title">Распространенные мифы о правильном питании</h2>
+                
+                <div class="content-section">
+                    <h2>Миф 1: Углеводы вредны для фигуры</h2>
+                    <p>Это один из самых распространенных мифов. На самом деле, углеводы — основной источник энергии для нашего организма. Проблема не в самих углеводах, а в их качестве и количестве.</p>
+                    <p><strong>Правда:</strong> Сложные углеводы (цельнозерновые крупы, овощи, бобовые) необходимы для здоровья. Они медленно усваиваются, обеспечивают длительное чувство сытости и содержат клетчатку. Вредны простые углеводы (сахар, белая мука) в избыточном количестве.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>Миф 2: Жиры делают нас толстыми</h2>
+                    <p>Многие до сих пор верят, что для похудения нужно полностью исключить жиры из рациона. Это не только неверно, но и вредно для здоровья.</p>
+                    <p><strong>Правда:</strong> Полезные жиры (оливковое масло, авокадо, орехи, жирная рыба) необходимы для усвоения витаминов, работы мозга и гормональной системы. Исключение жиров может привести к проблемам со здоровьем. Важно контролировать общую калорийность рациона, а не исключать отдельные макронутриенты.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>Миф 3: После 18:00 есть нельзя</h2>
+                    <p>Этот миф прочно укоренился в сознании многих людей, стремящихся похудеть. Однако современные исследования опровергают эту теорию.</p>
+                    <p><strong>Правда:</strong> Важно не когда вы едите, а что и сколько. Если вы ложитесь спать поздно, легкий ужин за 2-3 часа до сна не только не повредит, но и поможет избежать ночного голода и переедания на следующий день. Главное — общая калорийность рациона за сутки.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>Миф 4: Все калории одинаковы</h2>
+                    <p>Теория "калория есть калория" упрощает процесс питания, но не отражает всей сложности метаболизма.</p>
+                    <p><strong>Правда:</strong> 100 калорий из овощей и 100 калорий из сладкого по-разному влияют на организм. Разные продукты по-разному усваиваются, влияют на гормоны, аппетит и обмен веществ. Качество калорий так же важно, как и их количество.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>Миф 5: Глютен вреден для всех</h2>
+                    <p>В последние годы безглютеновые диеты стали очень популярными, хотя лишь небольшой процент людей действительно имеет проблемы с усвоением глютена.</p>
+                    <p><strong>Правда:</strong> Глютен вреден только для людей с целиакией или чувствительностью к глютену (около 1% населения). Для остальных цельнозерновые продукты с глютеном являются ценным источником клетчатки, витаминов и минералов.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>Миф 6: Фрукты нельзя есть при похудении</h2>
+                    <p>Некоторые диеты рекомендуют исключить фрукты из-за содержания фруктозы, что является заблуждением.</p>
+                    <p><strong>Правда:</strong> Фрукты содержат натуральные сахара, но также богаты клетчаткой, витаминами, антиоксидантами и водой. В разумных количествах фрукты полезны даже при снижении веса. Проблема возникает только при чрезмерном употреблении фруктовых соков или сухофруктов.</p>
+                </div>
+
+                <div class="highlight">
+                    <p>Помните: при формировании рациона важно опираться на научно обоснованные принципы питания, а не на популярные мифы и заблуждения. Индивидуальный подход и умеренность — ключ к успеху.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ПитаниеЗдоровье</div>
+                <div class="footer-links">
+                    <a href="#" class="nav-link" data-page="home">Главная</a>
+                    <a href="#" class="nav-link" data-page="principles">Принципы</a>
+                    <a href="#" class="nav-link" data-page="products">Продукты</a>
+                    <a href="#" class="nav-link" data-page="recipes">Рецепты</a>
+                    <a href="#" class="nav-link" data-page="myths">Мифы</a>
+                </div>
+                <div class="copyright">© 2023 ПитаниеЗдоровье. Все права защищены.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Навигация между страницами
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileNav = document.querySelector('.mobile-nav');
+            
+            // Функция переключения страниц
+            function switchPage(pageId) {
+                // Скрыть все страницы
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Показать выбранную страницу
+                document.getElementById(pageId).classList.add('active');
+                
+                // Обновить активную ссылку в навигации
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Закрыть мобильное меню после выбора страницы
+                if (window.innerWidth <= 768) {
+                    mobileNav.classList.remove('active');
+                }
+                
+                // Прокрутить к верху страницы
+                window.scrollTo(0, 0);
+            }
+            
+            // Обработчики для навигационных ссылок
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    switchPage(pageId);
+                });
+            });
+            
+            // Обработчик для кнопки мобильного меню
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileNav.classList.toggle('active');
+            });
+            
+            // Закрытие мобильного меню при клике вне его
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.mobile-nav') && !e.target.closest('.mobile-menu-btn')) {
+                    mobileNav.classList.remove('active');
+                }
+            });
+            
+            // Обработчик изменения размера окна
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    mobileNav.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
